@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Stuflow" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorBackgroundFloating">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/accentColor</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorBackgroundFloating</item>
+        <!-- Customize your theme here. -->
+        <item name="editTextStyle">@style/CustomEditText</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="android:elevation">0dp</item>
+        <item name="elevation">0dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/accentOnColor</item>
+    </style>
+
+    <style name="CustomEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:padding">8dp</item>
+        <item name="android:background">@drawable/border_white</item>
+    </style>
+</resources>

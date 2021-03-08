@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.stuflow.fragments.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_questionFragment"
+            app:destination="@id/questionFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_userInfo"
+            app:destination="@id/userInfo" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.stuflow.fragments.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" >
+        <action
+            android:id="@+id/action_editFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionFragment"
+        android:name="com.stuflow.fragments.QuestionFragment"
+        android:label="QuestionFragment">
+        <argument
+            android:name="question"
+            app:argType="com.stuflow.models.Question"/>
+        <action
+            android:id="@+id/action_questionFragment_to_userInfo"
+            app:destination="@id/userInfo" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/userInfo"
+        android:name="com.stuflow.dialogs.UserInfoDialog"
+        tools:layout="@layout/dialog_user">
+        <argument
+            android:name="user"
+            app:argType="com.stuflow.models.User"/>
+    </dialog>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.stuflow.fragments.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_okDialog"
+            app:destination="@id/okDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/okDialog"
+        android:name="com.stuflow.dialogs.OkDialog"
+        tools:layout="@layout/dialog_ok">
+        <argument
+            android:name="text"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_okDialog_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
+</navigation>

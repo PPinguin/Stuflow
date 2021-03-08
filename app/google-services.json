@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "467064919294",
+    "project_id": "stuflow-f7141",
+    "storage_bucket": "stuflow-f7141.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467064919294:android:f4fe0dbe4aac7bfa0e41af",
+        "android_client_info": {
+          "package_name": "com.stuflow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467064919294-bslkpq2thsobu7ve6agog9pifu5ll7mt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stuflow",
+            "certificate_hash": "b4a5bd23830020f84ca82b46c1ea3d7865c908bc"
+          }
+        },
+        {
+          "client_id": "467064919294-fu675ilffgf0v5vtv9nvfr6fktdduqrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBHnjIio9tCjia0L6yywNfjPvb1bLsrzk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467064919294-fu675ilffgf0v5vtv9nvfr6fktdduqrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

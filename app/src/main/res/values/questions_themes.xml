@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="themes">
+        <item>Без темы</item>
+        <item>Астрономия</item>
+        <item>Биология</item>
+        <item>География</item>
+        <item>История</item>
+        <item>Литература</item>
+        <item>Математика</item>
+        <item>Обществознание</item>
+        <item>Русский язык</item>
+        <item>Физика</item>
+        <item>Химия</item>
+        <item>Другое</item>
+    </string-array>
+</resources>
