@@ -15,30 +15,28 @@ import com.stuflow.models.User
 import com.stuflow.repository.DatabaseConnection
 import kotlinx.coroutines.launch
 
-class MainViewModel(val app: Application): AndroidViewModel(app) {
+class MainViewModel(val app: Application) : AndroidViewModel(app) {
     val callback = MutableLiveData("ok")
     val questionsList = MutableLiveData<MutableList<Question>?>(mutableListOf())
     val list = mutableListOf<Question>()
     var user: User? = null
-    private val listEventListener = object : ChildEventListener{
+    private val listEventListener = object : ChildEventListener {
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-            viewModelScope.launch {
-                DatabaseConnection.usersRef!!
-                    .child(snapshot.child("author").getValue<String>()!!)
-                    .child("name")
-                    .get()
-                    .addOnSuccessListener {
-                        list.add(
-                            Question(
-                                snapshot.key!!,
-                                snapshot.child("title").getValue<String>()!!,
-                                snapshot.child("theme").getValue<String>()!!,
-                                it.getValue<String>()!!
-                            )
+            DatabaseConnection.usersRef!!
+                .child(snapshot.child("author").getValue<String>()!!)
+                .child("name")
+                .get()
+                .addOnSuccessListener {
+                    list.add(
+                        Question(
+                            snapshot.key!!,
+                            snapshot.child("title").getValue<String>()!!,
+                            snapshot.child("theme").getValue<String>()!!,
+                            it.getValue<String>()!!
                         )
-                        questionsList.postValue(list)
-                    }
-            }
+                    )
+                    questionsList.postValue(list)
+                }
         }
 
         override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -54,14 +52,14 @@ class MainViewModel(val app: Application): AndroidViewModel(app) {
             questionsList.postValue(list)
         }
 
-        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) { }
+        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
 
         override fun onCancelled(error: DatabaseError) {
             callback.value = app.getString(R.string.update_failed)
         }
     }
 
-    init{
+    init {
         DatabaseConnection.questionsRef!!.limitToLast(10)
             .addChildEventListener(listEventListener)
         viewModelScope.launch {
@@ -72,7 +70,7 @@ class MainViewModel(val app: Application): AndroidViewModel(app) {
         }
     }
 
-    fun postQuestion(question: Question, content: String, date: String){
+    fun postQuestion(question: Question, content: String, date: String) {
         val key = DatabaseConnection.questionsRef!!.push().key ?: return
         DatabaseConnection.questionsRef!!.child(key).updateChildren(
             mapOf(
@@ -89,7 +87,7 @@ class MainViewModel(val app: Application): AndroidViewModel(app) {
     }
 
     fun updateUser(name: String, contacts: String) {
-        user?.let{ it.contacts = contacts }
+        user?.let { it.contacts = contacts }
         DatabaseConnection.usersRef!!.child(DatabaseConnection.currentUser!!.uid).updateChildren(
             mapOf(
                 "name" to name,
