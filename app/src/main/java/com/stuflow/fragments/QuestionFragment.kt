@@ -55,8 +55,10 @@ class QuestionFragment : Fragment() {
         }
         binding.postComment.setOnClickListener {
             binding.comment.text.apply{
-                viewModel.postComment(toString())
-                clear()
+                if (isNotEmpty()) {
+                    viewModel.postComment(toString())
+                    clear()
+                }
             }
         }
         binding.author.setOnClickListener { userInfo() }

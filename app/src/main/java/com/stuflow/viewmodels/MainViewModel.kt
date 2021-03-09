@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -12,6 +13,7 @@ import com.stuflow.R
 import com.stuflow.models.Question
 import com.stuflow.models.User
 import com.stuflow.repository.DatabaseConnection
+import kotlinx.coroutines.launch
 
 class MainViewModel(val app: Application): AndroidViewModel(app) {
     val callback = MutableLiveData("ok")
@@ -20,22 +22,23 @@ class MainViewModel(val app: Application): AndroidViewModel(app) {
     var user: User? = null
     private val listEventListener = object : ChildEventListener{
         override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-            DatabaseConnection.usersRef!!
-                .child(snapshot.child("author").getValue<String>()!!)
-                .child("name")
-                .get()
-                .addOnSuccessListener {
-                    list.add(
-                        Question(
-                            snapshot.key!!,
-                            snapshot.child("title").getValue<String>()!!,
-                            snapshot.child("theme").getValue<String>()!!,
-                            it.getValue<String>()!!
+            viewModelScope.launch {
+                DatabaseConnection.usersRef!!
+                    .child(snapshot.child("author").getValue<String>()!!)
+                    .child("name")
+                    .get()
+                    .addOnSuccessListener {
+                        list.add(
+                            Question(
+                                snapshot.key!!,
+                                snapshot.child("title").getValue<String>()!!,
+                                snapshot.child("theme").getValue<String>()!!,
+                                it.getValue<String>()!!
+                            )
                         )
-                    )
-                    questionsList.postValue(list)
-                    Log.d("MAIN", questionsList.value!!.size.toString())
-                }
+                        questionsList.postValue(list)
+                    }
+            }
         }
 
         override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -61,10 +64,12 @@ class MainViewModel(val app: Application): AndroidViewModel(app) {
     init{
         DatabaseConnection.questionsRef!!.limitToLast(10)
             .addChildEventListener(listEventListener)
-        DatabaseConnection.usersRef!!.child(DatabaseConnection.currentUser!!.uid).get()
-            .addOnSuccessListener {
-                user = it.getValue(User::class.java)
-            }
+        viewModelScope.launch {
+            DatabaseConnection.usersRef!!.child(DatabaseConnection.currentUser!!.uid).get()
+                .addOnSuccessListener {
+                    user = it.getValue(User::class.java)
+                }
+        }
     }
 
     fun postQuestion(question: Question, content: String, date: String){

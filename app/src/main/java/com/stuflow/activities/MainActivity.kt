@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import com.stuflow.R
-import com.stuflow.fragments.QuestionFragment
 import com.stuflow.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
